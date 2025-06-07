@@ -9,6 +9,8 @@ import { PlanList } from "../views/HomeViews/PlanList";
 import { AdPanel } from "../views/HomeViews/AdPanel";
 import { RoomRecommend } from "../views/HomeViews/RoomRecommend";
 import { IndexScroll } from "../components/ScrollContainer/IndexScroll";
+import { window } from "@kit.ArkUI";
+import { common } from "@kit.AbilityKit";
 
 @Component
 export struct HomePage {

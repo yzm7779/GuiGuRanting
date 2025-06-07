@@ -1,6 +1,6 @@
 const DRAFT_WIDTH = 360
 
-function rvp(val: number) {
+export default function rvp(val: number) {
   /*
   计算元素真正的大小
    */

@@ -3,19 +3,29 @@ import { DiscoverPage } from './DiscoverPage'
 import { MinePage } from './MinePage'
 import { SeePage } from './SeePage'
 import { ServicePage } from './ServicePage'
+import rvp from '../utils/responsive'
+import { window } from '@kit.ArkUI'
+import { common } from '@kit.AbilityKit'
 
 @Entry
 @Component
 struct Index {
   @State currentTabBarIndex: number = 0
+  @StorageProp('bottomHeight') bottomHeight: number = 0
+  setNavBarColor = async (color: string) => {
+    const windowClass = await window.getLastWindow(getContext(this) as common.BaseContext)
+    windowClass.setWindowSystemBarProperties({
+      statusBarContentColor: `${color}`
+    })
+  }
 
   @Builder
   tabBarBuilder(image: Resource, activeImage: Resource, text: string, index: number) {
     Column() {
       Image(this.currentTabBarIndex === index ? activeImage : image)
-        .width(28).height(28)
+        .width(rvp(28)).height(rvp(28))
       Text(text)
-        .fontSize(10).fontColor(this.currentTabBarIndex === index ? Color.Black : '#A0A0A0')
+        .fontSize(rvp(10)).fontColor(this.currentTabBarIndex === index ? Color.Black : '#A0A0A0')
     }
   }
 
@@ -46,10 +56,15 @@ struct Index {
         MinePage()
       }.tabBar(this.tabBarBuilder($r('app.media.tabbar_my'), $r('app.media.tabbar_my_active'), '我的', 4))
     }
-    .barHeight(50)
+    .barHeight(rvp(50) + this.bottomHeight)
     .scrollable(false)
     .onChange((index: number) => {
       this.currentTabBarIndex = index
+      if (index === 1) {
+        this.setNavBarColor('#000000')
+      } else {
+        this.setNavBarColor('#FFFFFF')
+      }
     })
   }
 }

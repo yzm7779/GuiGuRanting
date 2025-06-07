@@ -1,4 +1,5 @@
 import { PADDING } from "../../constants/size"
+import { router } from "@kit.ArkUI"
 
 @Component
 export struct SearchBar {
@@ -40,6 +41,11 @@ export struct SearchBar {
         color: '#D7D7D7'
       })
       .padding({ left: PADDING, right: PADDING })
+      .onClick(() => {
+        router.pushUrl({
+          url: 'pages/RantRoom/RantRoomList'
+        })
+      })
 
       //右侧的图标
       Image($r('app.media.message'))

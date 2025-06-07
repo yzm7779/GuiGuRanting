@@ -1,6 +1,7 @@
 import { getHomeRecommendApi } from '../../api/home'
 import { BORDER_RADIUS, PADDING, PADDING_S } from '../../constants/size'
 import { IRoomRecommendItem, IRoomRecommendList, ITagItem, RoomRecommendDataSource } from '../../modules/HomeData'
+import { router } from '@kit.ArkUI'
 
 @Component
 export struct RoomRecommend {
@@ -45,6 +46,11 @@ export struct RoomRecommend {
           .width(4).height(8)
           .fillColor('#666666')
       }
+      .onClick(() => {
+        router.pushUrl({
+          url: 'pages/RantRoom/RantRoomList'
+        })
+      })
     }
     .width('100%')
     .justifyContent(FlexAlign.SpaceBetween)

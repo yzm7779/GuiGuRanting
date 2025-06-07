@@ -31,7 +31,9 @@ export default class EntryAbility extends UIAbility {
     windowClass.setWindowLayoutFullScreen(true) //设置全屏
     const avoidArea = windowClass.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM)
     const topHeight = avoidArea.topRect.height //单位是px
+    const bottomHeight = avoidArea.bottomRect.height //单位是px
     AppStorage.setOrCreate('topHeight', px2vp(topHeight)) //存储状态栏高度
+    AppStorage.setOrCreate('bottomHeight', px2vp(bottomHeight)) //存储状态栏高度
 
     //设置状态栏颜色
     windowClass.setWindowSystemBarProperties({
