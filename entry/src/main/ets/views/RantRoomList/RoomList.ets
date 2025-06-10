@@ -2,6 +2,7 @@ import { searchHomeListApi } from "../../api/discoverData";
 import { BORDER_RADIUS } from "../../constants/size";
 import { ITagItem } from "../../modules/HomeData";
 import { IRoomItem, IRoomList, ISearchListParams, RoomDataSource } from "../../modules/ReaearchRoomList";
+import globalEmitter from "../../utils/emitter";
 import rvp from "../../utils/responsive";
 
 @Component
@@ -28,8 +29,8 @@ export struct RoomList {
   }
 
   loaderMore() {
-    if (this.roomTotal >= this.roomList.totalCount()) {
-      this.isMoreData = false
+    if (this.roomTotal <= this.roomList.totalCount()) {
+      this.isMoreData = true
       return
     }
     this.searchOption.page++
@@ -38,6 +39,16 @@ export struct RoomList {
 
   aboutToAppear(): void {
     this.searchRoomList()
+    //绑定事件
+    globalEmitter.on('search', (searchOptions: Partial<ISearchListParams>) => {
+      const keys = Object.keys(searchOptions)
+      keys.forEach(key => {
+        const val: string = Reflect.get(searchOptions, key)
+        Reflect.set(this.searchOption, key, val)
+      })
+      this.searchOption.page = 1
+      this.searchRoomList()
+    })
   }
 
   getText(room: IRoomItem): string {
@@ -46,7 +57,7 @@ export struct RoomList {
 
   @Builder
   footerBuilder() {
-    if (this.isMoreData) {
+    if (!this.isMoreData) {
       Row() {
         Refresh({ refreshing: true })
           .outlineColor(Color.Black)

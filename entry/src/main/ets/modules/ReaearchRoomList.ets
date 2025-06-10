@@ -3,11 +3,11 @@ import { IRoomRecommendItem } from "./HomeData"
 export interface ISearchListParams {
   page: number
   limit: number
-  provinceCode?: number
-  cityCode?: number
-  districtCode?: number
-  minRent?: number
-  maxRent?: number
+  provinceCode?: string
+  cityCode?: string
+  districtCode?: string
+  minRent?: string
+  maxRent?: string
   paymentType?: string
   orderBy?: string
   orderType?: string
@@ -93,3 +93,31 @@ export class RoomDataSource implements IDataSource {
     })
   }
 }
+
+export interface IProvinceItem {
+  code: string,
+  name: string
+}
+
+export type IProvinceList = IProvinceItem[]
+
+export interface ICityItem extends IProvinceItem {
+  provinceCode: string
+}
+
+export type ICityList = ICityItem[]
+
+export interface IDistrictItem extends ICityItem {
+  cityCode: string
+}
+
+export type IDistrictList = IDistrictItem[]
+
+export interface ISortItem {
+  icon: Resource,
+  text: string,
+  orderBy: string,
+  orderType: string
+}
+
+export type ISortItemList = ISortItem[]
