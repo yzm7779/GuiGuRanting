@@ -4,6 +4,7 @@ import { ITagItem } from "../../modules/HomeData";
 import { IRoomItem, IRoomList, ISearchListParams, RoomDataSource } from "../../modules/ReaearchRoomList";
 import globalEmitter from "../../utils/emitter";
 import rvp from "../../utils/responsive";
+import { router } from "@kit.ArkUI";
 
 @Component
 export struct RoomList {
@@ -81,7 +82,6 @@ export struct RoomList {
       WaterFlow({ footer: this.footerBuilder() }) {
         LazyForEach(this.roomList, (room: IRoomItem) => {
           FlowItem() {
-
             Column() {
               if (room.activity) {
                 Column() {
@@ -193,8 +193,12 @@ export struct RoomList {
               .padding({ left: 12, right: 12, bottom: 12 })
             }
           }
-
-
+          .onClick(() => {
+            router.pushUrl({
+              url: 'pages/RantRoom/RantRoomDetailList',
+              params: { id: room.id }
+            })
+          })
           .width(rvp(160)).height(room.activity ? rvp(320) : rvp(210))
         }, (room: IRoomItem) => room.id)
       }

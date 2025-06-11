@@ -42,7 +42,9 @@ export default class EntryAbility extends UIAbility {
     //获取屏幕宽高
     const props = windowClass.getWindowProperties()
     const windowWidth = props.windowRect.width
+    const windowHeight = props.windowRect.height
     AppStorage.setOrCreate('windowWidth', px2vp(windowWidth))
+    AppStorage.setOrCreate('windowHeight', px2vp(windowHeight))
   }
 
   onWindowStageDestroy(): void {

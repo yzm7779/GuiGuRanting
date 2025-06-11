@@ -192,3 +192,12 @@ export class RoomRecommendDataSource implements IDataSource {
 export interface IColor {
   fontColor: string
 }
+
+export interface IRantPrice {
+  id: number,
+  minRent: string,
+  maxRent: string,
+  text: string
+}
+
+export type IRantPriceList = IRantPrice[]
